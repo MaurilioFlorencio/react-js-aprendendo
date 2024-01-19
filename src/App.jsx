@@ -5,7 +5,7 @@ import Todo from './components/Todo'
 import TodoForm from './components/TodoForm'
 
 function App() {
-  const [todos,setTodos] = useState([
+  const [todos, setTodos] = useState([
     {
       id: 1,
       text: "Criar funcionalidade x no sistema",
@@ -30,13 +30,21 @@ function App() {
 
     const newTodos = [
       ...todos, {
-      id: Math.floor(Math.random() * 10000),
-      text,
-      category,
-      isComplet: false,
-    }]
+        id: Math.floor(Math.random() * 10000),
+        text,
+        category,
+        isComplet: false,
+      }]
 
     setTodos(newTodos);
+  };
+
+  const removeTodo = (id) => {
+    const newTodos = [...todos];
+    const filteredTodos = newTodos.filter((todo) => 
+      todo.id !== id ? todo : null
+    );
+      setTodos (filteredTodos)
   };
 
   return (
@@ -44,7 +52,7 @@ function App() {
       <h1>Lista de Tarefas</h1>
       <div className="todo-list">
         {todos.map((todo) => (
-          <Todo key={todo.id} todo={todo}/>
+          <Todo key={todo.id} todo={todo} removeTodo={removeTodo}/>
         ))}
       </div>
       <TodoForm addTodo={addTodo} />
